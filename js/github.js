@@ -682,7 +682,7 @@
             content: btoa(content),
             branch: branch,
             sha: sha
-          }, cb(err, sha));
+          }, cb(err, sha), true);
         });
       };
 
