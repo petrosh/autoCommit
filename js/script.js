@@ -46,10 +46,10 @@ if( localStorage.getItem("token") !== null ){
     // Retrieve textarea content
     body = document.getElementById("body").value;
     // Write on master branch
-    repo.write('master', 'LOG.md', body, 'committed '+new Date(), function(err) {
+    repo.write('master', 'LOG.md', body, 'committed '+new Date(), function(err, sha) {
       if(err===null){
         // Success
-        document.getElementsByTagName('section')[0].innerHTML = '<h1>Commit ok</h1><a href="/'+reponame+'">Again</a>';
+        document.getElementsByTagName('section')[0].innerHTML = '<h1>Commit ok</h1><h2>sha '+sha+'</h2><a href="/'+reponame+'">Again</a>';
       }else{
         // Error, remove token
         document.getElementsByTagName('section')[0].innerHTML = '<h1>error '+err.error+'</h1><a href="/'+reponame+'">Again</a>';

@@ -1,5 +1,3 @@
-// Github.js 0.10.6
-
 /*!
  * @overview  Github.js
  *
@@ -684,7 +682,7 @@
             content: btoa(content),
             branch: branch,
             sha: sha
-          }, cb);
+          }, cb(err, sha));
         });
       };
 
@@ -693,6 +691,9 @@
       // path: Only commits containing this file path will be returned
       // since: ISO 8601 date - only commits after this date will be returned
       // until: ISO 8601 date - only commits before this date will be returned
+      // -------
+      // ADDED
+      // author: GitHub login or email address by which to filter by commit author
       // -------
 
       this.getCommits = function(options, cb) {
@@ -725,6 +726,9 @@
           if (options.perpage) {
               params.push("per_page=" + options.perpage);
           }
+          if (options.author) {
+              params.push("author=" + encodeURIComponent(options.sha));
+          }
           if (params.length > 0) {
               url += "?" + params.join("&");
           }
@@ -739,7 +743,7 @@
       var id = options.id;
       var gistPath = "/gists/"+id;
 
-      // Read the gist
+      // .Read the gist
       // --------
 
       this.read = function(cb) {
